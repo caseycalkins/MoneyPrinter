@@ -97,7 +97,7 @@ def split_string(string: str, chunk_size: int) -> List[str]:
 # checking if the website that provides the service is available
 def get_api_response() -> requests.Response:
     url = f'{ENDPOINTS[current_endpoint].split("/a")[0]}'
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     return response
 
 
@@ -113,7 +113,7 @@ def generate_audio(text: str, voice: str) -> bytes:
     url = f"{ENDPOINTS[current_endpoint]}"
     headers = {"Content-Type": "application/json"}
     data = {"text": text, "voice": voice}
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data, timeout=60)
     return response.content
 
 
