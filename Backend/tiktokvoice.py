@@ -13,6 +13,7 @@ import threading
 from typing import List
 from termcolor import colored
 from playsound import playsound
+from security import safe_requests
 
 
 VOICES = [
@@ -97,7 +98,7 @@ def split_string(string: str, chunk_size: int) -> List[str]:
 # checking if the website that provides the service is available
 def get_api_response() -> requests.Response:
     url = f'{ENDPOINTS[current_endpoint].split("/a")[0]}'
-    response = requests.get(url, timeout=60)
+    response = safe_requests.get(url, timeout=60)
     return response
 
 
