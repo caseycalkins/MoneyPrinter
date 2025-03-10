@@ -2,7 +2,6 @@
   
 import httplib2  
 import os  
-import random  
 import sys  
 import time  
   
@@ -12,6 +11,7 @@ from apiclient.http import MediaFileUpload
 from oauth2client.client import flow_from_clientsecrets  
 from oauth2client.file import Storage  
 from oauth2client.tools import argparser, run_flow  
+import secrets
   
 # Explicitly tell the underlying HTTP transport library not to retry, since  
 # we are handling retry logic ourselves.  
@@ -134,7 +134,7 @@ def resumable_upload(insert_request):
                 raise Exception("No longer attempting to retry.")  
   
             max_sleep = 2 ** retry  
-            sleep_seconds = random.random() * max_sleep  
+            sleep_seconds = secrets.SystemRandom().random() * max_sleep  
             print(f"Sleeping {sleep_seconds} seconds and then retrying...")  
             time.sleep(sleep_seconds)  
   
