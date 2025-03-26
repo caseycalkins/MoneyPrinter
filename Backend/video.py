@@ -1,7 +1,5 @@
 import os
 import uuid
-
-import requests
 import srt_equalizer
 import assemblyai as aai
 
@@ -12,6 +10,7 @@ from dotenv import load_dotenv
 from datetime import timedelta
 from moviepy.video.fx.all import crop
 from moviepy.video.tools.subtitles import SubtitlesClip
+from security import safe_requests
 
 load_dotenv("../.env")
 
@@ -32,7 +31,7 @@ def save_video(video_url: str, directory: str = "../temp") -> str:
     video_id = uuid.uuid4()
     video_path = f"{directory}/{video_id}.mp4"
     with open(video_path, "wb") as f:
-        f.write(requests.get(video_url, timeout=60).content)
+        f.write(safe_requests.get(video_url, timeout=60).content)
 
     return video_path
 
